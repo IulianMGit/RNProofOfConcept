@@ -8,13 +8,12 @@ import { graphql } from "react-apollo";
 import GET_CATEGORIES from "./network/queries/getCategories";
 
 // screens
-import JavaScriptSet from "./tabs/JavaScriptSet";
+import GenericSet from "./tabs/GenericSet";
 import SettingsSet from "./tabs/SettingsSet";
 import TabsNav from "./TabsNav";
 
 // constants
 import RNPOCColors from "./common/RNPOCColors";
-import routeToTabMapping from "./tabs/TabRoutes";
 
 class AppContainer extends Component {
   render() {
@@ -23,28 +22,14 @@ class AppContainer extends Component {
 
     if (loading) return <View style={styles.container} />;
 
-    const availablePostCategories = postCategories
-      .map(postCategory => ({
-        ...postCategory,
-        name: postCategory.name.toLowerCase() // normalize  the fetched strings, EX.: 'JAvASript; string to be accepted
-      }))
-      .filter(postCategory => routeToTabMapping[postCategory.name]);
-
     return (
       <View style={styles.container}>
         <View style={styles.tabsContent}>
-          {availablePostCategories.map(postCategory => (
-            <Route
-              key={postCategory.name}
-              path={`/${postCategory.name}`}
-              component={routeToTabMapping[postCategory.name]}
-            />
-          ))}
-
-          <Route path="/" exact component={JavaScriptSet} />
+          <Route path="/" exact component={SettingsSet} />
+          <Route path="/tabNav/:id" component={GenericSet} />
           <Route path="/settings" component={SettingsSet} />
         </View>
-        <TabsNav availablePostCategories={availablePostCategories} />
+        <TabsNav postCategories={postCategories} />
       </View>
     );
   }

@@ -1,6 +1,6 @@
 // dependencies
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text } from "react-native";
 import { Link } from "react-router-native";
 
 // constants
@@ -9,18 +9,25 @@ import RNPOCIcons from "./common/RNPOCIcons";
 
 class TabsNav extends Component {
   render() {
-    const { availablePostCategories } = this.props;
+    const { postCategories } = this.props;
 
     return (
       <View style={styles.nav}>
-        {availablePostCategories.map(postCategory => (
+        {postCategories.map(postCategory => (
           <Link
-            key={postCategory.name}
-            to={`/${postCategory.name}`}
+            key={postCategory._id}
+            to={{
+              pathname: `/tabNav/${postCategory._id}`,
+              state: { name: postCategory.name }
+            }}
             underlayColor={RNPOCColors.tabUnderlayColor}
             style={styles.navItem}
           >
-            {RNPOCIcons[`${postCategory.name}TabIcon`]}
+            {RNPOCIcons[`${postCategory.name.toLowerCase()}TabIcon`] ? (
+              RNPOCIcons[`${postCategory.name.toLowerCase()}TabIcon`]
+            ) : (
+              <Text>?</Text>
+            )}
           </Link>
         ))}
 
