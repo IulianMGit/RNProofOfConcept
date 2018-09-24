@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
   tabsContent: {
     height: "100%",
     flex: 1,
-    padding: 15,
     backgroundColor: RNPOCColors.contentBackgroundColor
   }
 });

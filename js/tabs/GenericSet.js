@@ -1,10 +1,18 @@
 // dependencies
 import React, { Component } from "react";
-import { View, Text, FlatList } from "react-native";
+import { View, Text, FlatList, StyleSheet, ActivityIndicator } from "react-native";
 import { withApollo } from "react-apollo";
 
 // queries
 import GET_POSTS from "../network/queries/getPosts";
+
+// constants
+import RNPOCSpacings from "../common/RNPOCSpacings";
+import RNPOCColors from "../common/RNPOCColors";
+import RNPOCStyles from "../common/RNPOCStyle";
+
+// components
+import Post from "../components/post";
 
 class GenericSet extends Component {
   state = {
@@ -38,30 +46,37 @@ class GenericSet extends Component {
   render() {
     const { name } = this.props.location.state;
 
-    if (this.state.isFetching) return <Text>Fetching!</Text>;
+    if (this.state.isFetching) return <ActivityIndicator color={RNPOCColors.white} style={styles.activityIndicator} />;
 
     if (!this.state.posts.length) return <Text>No posts!!</Text>;
 
     return (
       <View>
-        <Text>{name}</Text>
-
         <FlatList
           data={this.state.posts}
           keyExtractor={item => item._id}
-          renderItem={({ item }) => (
-            <View>
-              <Text>{item.title}</Text>
-
-              <Text>{item.description}</Text>
+          contentContainerStyle={styles.flatListContainer}
+          ListHeaderComponent={() => (
+            <View style={RNPOCStyles.sectionTitleWrapper}>
+              <Text style={RNPOCStyles.sectionTitle}>{name}</Text>
             </View>
+          )}
+          renderItem={({ item }) => (
+            <Post post={item} />
           )}
         />
       </View>
     );
   }
 }
-
+// TODO: implement refresh.
 export default withApollo(GenericSet);
 
-// const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  flatListContainer: {
+    padding: RNPOCSpacings.verticalDistanceBig
+  },
+  activityIndicator: {
+    marginVertical: RNPOCSpacings.verticalDistanceBig
+  }
+});
