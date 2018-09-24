@@ -1,6 +1,6 @@
 // dependencies
 import React, { Component } from "react";
-import { View, Text, FlatList, StyleSheet, ActivityIndicator } from "react-native";
+import { View, Text, FlatList, StyleSheet, ActivityIndicator, RefreshControl, Keyboard } from "react-native";
 import { withApollo } from "react-apollo";
 
 // queries
@@ -13,24 +13,49 @@ import RNPOCStyles from "../common/RNPOCStyle";
 
 // components
 import Post from "../components/post";
+import SearchTextInput from "../components/SearchTextInput"
 
 class GenericSet extends Component {
   state = {
+    query: '',
+
     isFetching: true,
+    isRefreshing: false,
+
     posts: []
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const { id } = this.props.match.params;
 
-    this._fetchPosts(id);
+    const { posts } = await this._fetchPosts(id);
+
+    this.setState({ posts, isFetching: false });
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.setState({ isFetching: true, posts: [] });
+  async componentWillReceiveProps(nextProps) {
+    this.setState({ isFetching: true, posts: [], query: '' });
 
     const { id } = nextProps.match.params;
-    this._fetchPosts(id);
+
+    const { posts } = await this._fetchPosts(id);
+    this.setState({ posts, isFetching: false });
+  }
+
+  _search = async (query) => {
+    this.setState({ query });
+
+    this._refresh(true);
+  }
+
+  _refresh = async (silently) => {
+    if (!silently)
+      this.setState({ isRefreshing: true, posts: [] });
+
+    const { id } = this.props.match.params;
+    const { posts } = await this._fetchPosts(id);
+
+    this.setState({ posts, isRefreshing: false });
   }
 
   _fetchPosts = async categoryId => {
@@ -40,7 +65,7 @@ class GenericSet extends Component {
     });
     // TODO: maybe add infinite scroll, basically downloading the whole db each time. 
 
-    this.setState({ posts: data.posts, isFetching: false });
+    return data;
   };
 
   render() {
@@ -48,7 +73,7 @@ class GenericSet extends Component {
 
     if (this.state.isFetching) return <ActivityIndicator color={RNPOCColors.white} style={styles.activityIndicator} />;
 
-    if (!this.state.posts.length) return <Text>No posts!!</Text>;
+    if (!this.state.posts.length && !this.state.isRefreshing && !this.state.isFetching) return <Text>No posts!!</Text>;
 
     return (
       <View>
@@ -57,9 +82,26 @@ class GenericSet extends Component {
           keyExtractor={item => item._id}
           contentContainerStyle={styles.flatListContainer}
           ListHeaderComponent={() => (
-            <View style={RNPOCStyles.sectionTitleWrapper}>
-              <Text style={RNPOCStyles.sectionTitle}>{name}</Text>
+            <View style={styles.flatListHeaderWrapper}>
+              <View style={RNPOCStyles.sectionTitleWrapper}>
+                <Text style={RNPOCStyles.sectionTitle}>{name}</Text>
+              </View>
+
+              <SearchTextInput
+                throttledCallback={(query) => this._search(query)}
+                value={this.state.query}
+              />
             </View>
+          )}
+
+          refreshControl={(
+            <RefreshControl
+              colors={[RNPOCColors.white]}
+              progressBackgroundColor={RNPOCColors.black}
+              tintColor={RNPOCColors.white}
+              refreshing={this.state.isRefreshing}
+              onRefresh={this._refresh}
+            />
           )}
           renderItem={({ item }) => (
             <Post post={item} />
@@ -69,12 +111,15 @@ class GenericSet extends Component {
     );
   }
 }
-// TODO: implement refresh.
+
 export default withApollo(GenericSet);
 
 const styles = StyleSheet.create({
+  flatListHeaderWrapper: {
+    paddingVertical: RNPOCSpacings.verticalDistanceBig
+  },
   flatListContainer: {
-    padding: RNPOCSpacings.verticalDistanceBig
+    paddingHorizontal: RNPOCSpacings.verticalDistanceBig
   },
   activityIndicator: {
     marginVertical: RNPOCSpacings.verticalDistanceBig

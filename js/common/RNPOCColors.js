@@ -8,7 +8,7 @@ const namedColors = {
   darkGray: "#242834",
   darkGray2: "#243345",
 
-  lightGray:"#eeeeee"
+  lightGray: "#eeeeee"
 };
 
 export default {
@@ -17,5 +17,6 @@ export default {
   tabBackgroundColor: namedColors.darkGray,
   tabColor: namedColors.white,
   tabUnderlayColor: namedColors.darkGray2,
-  contentBackgroundColor: namedColors.darkBlue
+  contentBackgroundColor: namedColors.darkBlue,
+  inputPlaceholderColor: namedColors.lightGray
 };

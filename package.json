@@ -15,7 +15,8 @@
     "react-apollo": "^2.1.11",
     "react-native": "0.57.0",
     "react-native-vector-icons": "^5.0.0",
-    "react-router-native": "^4.3.0"
+    "react-router-native": "^4.3.0",
+    "throttle-debounce": "^2.0.1"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
