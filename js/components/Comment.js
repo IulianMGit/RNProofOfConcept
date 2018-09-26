@@ -1,6 +1,6 @@
 // dependencies
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 // constants
 import RNPOCColors from "../common/RNPOCColors";
@@ -8,11 +8,11 @@ import RNPOCSpacings from "../common/RNPOCSpacings";
 
 // const navigateToPostDetail = () => {};
 
-const Post = ({ post, onPress }) => (
-  <TouchableOpacity onPress={onPress} style={styles.postWrapper}>
-    <Text style={styles.postTitle}>{post.title}</Text>
-    <Text style={styles.postDescription}>{post.description}</Text>
-  </TouchableOpacity>
+const Comment = ({ comment }) => (
+  <View style={styles.postWrapper}>
+    <Text style={styles.postTitle}>{comment.user.firstname}</Text>
+    <Text style={styles.postDescription}>{comment.text}</Text>
+  </View>
 );
 
 const styles = StyleSheet.create({
@@ -33,4 +33,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Post;
+export default Comment;

@@ -20,7 +20,7 @@ import RNPOCColors from "../common/RNPOCColors";
 import RNPOCStyles from "../common/RNPOCStyle";
 
 // components
-import Post from "../components/post";
+import Post from "../components/Post";
 import SearchTextInput from "../components/SearchTextInput";
 import CreatePostSection from "../components/CreatePostSection";
 
@@ -83,6 +83,10 @@ class GenericSet extends Component {
     this.setState(prevState => ({ posts: [post, ...prevState.posts] }));
   };
 
+  navigateToPostDetails = postId => {
+    this.props.history.push(`/postDetails/${postId}`);
+  };
+
   render() {
     const { name } = this.props.location.state;
     const { id: categoryId } = this.props.match.params;
@@ -141,7 +145,14 @@ class GenericSet extends Component {
               onRefresh={this._refresh}
             />
 )}
-          renderItem={({ item }) => <Post post={item} />}
+          renderItem={({ item }) => (
+            <Post
+              post={item}
+              onPress={() => {
+                this.navigateToPostDetails(item._id);
+              }}
+            />
+          )}
         />
       </View>
     );

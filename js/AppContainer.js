@@ -11,6 +11,7 @@ import GET_CATEGORIES from "./network/queries/getCategories";
 import GenericSet from "./tabs/GenericSet";
 import SettingsSet from "./tabs/SettingsSet";
 import TabsNav from "./TabsNav";
+import PostDetailsWrapper from "./screens/PostDetailsWrapper";
 
 // constants
 import RNPOCColors from "./common/RNPOCColors";
@@ -29,6 +30,7 @@ class AppContainer extends Component {
         <View style={styles.tabsContent}>
           <Route path="/" exact component={SettingsSet} />
           <Route path="/tabNav/:id" component={GenericSet} />
+          <Route path="/postDetails/:id" component={PostDetailsWrapper} />
           <Route path="/settings" component={SettingsSet} />
         </View>
         <TabsNav postCategories={postCategories} />
