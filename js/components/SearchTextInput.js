@@ -1,7 +1,13 @@
 // dependencies
 import React, { Component } from "react";
-import { StyleSheet, TextInput, View, TouchableOpacity, Text } from "react-native";
-import { debounce } from 'throttle-debounce'
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  TouchableOpacity,
+  Text
+} from "react-native";
+import { debounce } from "throttle-debounce";
 
 // constants
 // import RNPOCSpacings from "../common/RNPOCSpacings";
@@ -9,47 +15,56 @@ import RNPOCColors from "../common/RNPOCColors";
 import RNPOCSpacings from "../common/RNPOCSpacings";
 import RNPOCStringConstants from "../common/RNPOCStringConstants";
 import RNPOCConstantProps from "../common/RNPOCConstantProps";
-// import RNPOCStyles from "../common/RNPOCStyle";
+import RNPOCStyles from "../common/RNPOCStyle";
 
 const _debounceTimeout = 500;
 
 class SearchTextInput extends Component {
-
   state = {
-    query: this.props.value || ''
-  }
+    query: this.props.value || ""
+  };
 
-  _onSearchInput = debounce(_debounceTimeout, () => { this.props.throttledCallback(this.state.query); });
+  _onSearchInput = debounce(_debounceTimeout, () => {
+    this.props.throttledCallback(this.state.query);
+  });
 
   resetInput = () => {
     this.input.clear();
-    this.props.throttledCallback('');
-  }
+    this.props.throttledCallback("");
+  };
 
   focusInput = () => {
     this.input.focus();
-  }
+  };
 
   render() {
     return (
-      <View style={styles.inputWrapper}>
+      <View style={RNPOCStyles.inputWrapper}>
         <TextInput
-          onChangeText={(text) => { this.setState({ query: text }); this._onSearchInput() }}
+          onChangeText={text => {
+            this.setState({ query: text });
+            this._onSearchInput();
+          }}
           value={this.state.query}
-          style={styles.input}
+          style={RNPOCStyles.input}
           placeholder={RNPOCStringConstants.searchPostsPlaceholder}
           placeholderTextColor={RNPOCColors.inputPlaceholderColor}
-          ref={inputRef => { this.input = inputRef }}
+          ref={inputRef => {
+            this.input = inputRef;
+          }}
         />
-        {Boolean(this.state.query) && this.state.query.length !== 0 && (
-          <TouchableOpacity
-            onPress={() => { this.resetInput() }}
-            hitSlop={RNPOCConstantProps.normalHitSlop}
-            style={styles.resetInputButton}
-          >
-            <Text style={styles.xButtonImitation}>+</Text>
-          </TouchableOpacity>
-        )}
+        {Boolean(this.state.query) &&
+          this.state.query.length !== 0 && (
+            <TouchableOpacity
+              onPress={() => {
+                this.resetInput();
+              }}
+              hitSlop={RNPOCConstantProps.normalHitSlop}
+              style={styles.resetInputButton}
+            >
+              <Text style={styles.xButtonImitation}>+</Text>
+            </TouchableOpacity>
+          )}
       </View>
     );
   }
@@ -58,30 +73,15 @@ class SearchTextInput extends Component {
 export default SearchTextInput;
 
 const styles = StyleSheet.create({
-  inputWrapper: {
-    width: "100%",
-    borderWidth: 1,
-    borderColor: RNPOCColors.white,
-    borderRadius: 5,
-    flexDirection: 'row',
-    flex: 1,
-    justifyContent: 'space-around'
-  },
-  input: {
-    height: 40,
-    flex: 1,
-    color: RNPOCColors.white,
-    paddingHorizontal: RNPOCSpacings.verticalDistanceNormal
-  },
   xButtonImitation: {
     color: RNPOCColors.white,
-    transform: [{ rotate: '45deg' }],
+    transform: [{ rotate: "45deg" }],
     fontSize: RNPOCSpacings.fontSizeBig,
-    position: 'absolute'
+    position: "absolute"
   },
   resetInputButton: {
     padding: RNPOCSpacings.horizontalDistanceBig,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center"
   }
 });

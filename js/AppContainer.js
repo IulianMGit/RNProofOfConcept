@@ -1,6 +1,6 @@
 // dependencies
 import React, { Component } from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Dimensions, StatusBar } from "react-native";
 import { Route } from "react-router-native";
 import { graphql } from "react-apollo";
 
@@ -14,6 +14,8 @@ import TabsNav from "./TabsNav";
 
 // constants
 import RNPOCColors from "./common/RNPOCColors";
+
+const { height: vh } = Dimensions.get("window");
 
 class AppContainer extends Component {
   render() {
@@ -42,7 +44,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     justifyContent: "space-between",
-    height: "100%"
+    height: vh - StatusBar.currentHeight
   },
   tabsContent: {
     height: "100%",
