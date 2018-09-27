@@ -1,6 +1,12 @@
 // dependencies
 import React, { Component } from "react";
-import { StyleSheet, ActivityIndicator } from "react-native";
+import {
+  StyleSheet,
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  StatusBar,
+  ScrollView
+} from "react-native";
 import { withApollo } from "react-apollo";
 
 // queries
@@ -11,6 +17,7 @@ import RNPOCColors from "../common/RNPOCColors";
 
 // components
 import PostDetails from "./PostDetails";
+import CreateCommentSection from "../components/CreateCommentSection";
 
 class PostDetailsWrapper extends Component {
   state = {
@@ -40,6 +47,20 @@ class PostDetailsWrapper extends Component {
     return null;
   };
 
+  addCommentToPost = newComment => {
+    this.state.post.comments = [
+      ...(this.state.post.comments ? this.state.post.comments : []),
+      newComment
+    ];
+
+    this.setState({});
+    // TODO: better way to update nested state objects?
+
+    setTimeout(() => {
+      this.scrollView.scrollToEnd({animated: true});
+    });
+  };
+
   render() {
     if (this.state.isFetching)
       return (
@@ -49,7 +70,25 @@ class PostDetailsWrapper extends Component {
         />
       );
 
-    return <PostDetails post={this.state.post} />;
+    return (
+      <KeyboardAvoidingView
+        enabled
+        behavior="padding"
+        keyboardVerticalOffset={StatusBar.currentHeight}
+      >
+        <ScrollView
+          ref={scrollViewRef => {
+            this.scrollView = scrollViewRef;
+          }}
+        >
+          <PostDetails post={this.state.post} />
+          <CreateCommentSection
+            post={this.state.post}
+            onAddComment={newComment => this.addCommentToPost(newComment)}
+          />
+        </ScrollView>
+      </KeyboardAvoidingView>
+    );
   }
 }
 

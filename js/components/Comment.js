@@ -10,7 +10,7 @@ import RNPOCSpacings from "../common/RNPOCSpacings";
 
 const Comment = ({ comment }) => (
   <View style={styles.postWrapper}>
-    <Text style={styles.postTitle}>{comment.user.firstname}</Text>
+    <Text style={styles.postTitle}>{(comment.user || {}).firstname}</Text>
     <Text style={styles.postDescription}>{comment.text}</Text>
   </View>
 );

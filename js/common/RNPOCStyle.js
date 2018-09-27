@@ -33,6 +33,10 @@ const RNPOCStyles = StyleSheet.create({
     flex: 1,
     color: RNPOCColors.white,
     paddingHorizontal: RNPOCSpacings.verticalDistanceNormal
+  },
+
+  flatListContainer: {
+    paddingHorizontal: RNPOCSpacings.verticalDistanceBig
   }
 });
 

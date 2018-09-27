@@ -24,6 +24,9 @@ import Post from "../components/Post";
 import SearchTextInput from "../components/SearchTextInput";
 import CreatePostSection from "../components/CreatePostSection";
 
+// helpers
+import injectTheme from "../helpers/Theme";
+
 class GenericSet extends Component {
   state = {
     query: "",
@@ -106,6 +109,7 @@ class GenericSet extends Component {
     )
       return <Text>No posts!!</Text>;
 
+    const { theme } = this.props;
     const filteredPosts =
       this.state.query.length !== 0
         ? this.state.posts.filter(x => x.title.contains(this.state.query))
@@ -116,11 +120,18 @@ class GenericSet extends Component {
         <FlatList
           data={filteredPosts}
           keyExtractor={item => item._id}
-          contentContainerStyle={styles.flatListContainer}
+          contentContainerStyle={RNPOCStyles.flatListContainer}
           ListHeaderComponent={() => (
             <View style={styles.flatListHeaderWrapper}>
               <View style={RNPOCStyles.sectionTitleWrapper}>
-                <Text style={RNPOCStyles.sectionTitle}>{name}</Text>
+                <Text
+                  style={[
+                    RNPOCStyles.sectionTitle,
+                    { color: theme.captionColor }
+                  ]}
+                >
+                  {name}
+                </Text>
               </View>
 
               <SearchTextInput
@@ -159,14 +170,11 @@ class GenericSet extends Component {
   }
 }
 
-export default withApollo(GenericSet);
+export default withApollo(injectTheme(GenericSet));
 
 const styles = StyleSheet.create({
   flatListHeaderWrapper: {
     paddingVertical: RNPOCSpacings.verticalDistanceBig
-  },
-  flatListContainer: {
-    paddingHorizontal: RNPOCSpacings.verticalDistanceBig
   },
   activityIndicator: {
     marginVertical: RNPOCSpacings.verticalDistanceBig

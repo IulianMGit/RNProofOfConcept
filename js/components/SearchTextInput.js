@@ -10,12 +10,14 @@ import {
 import { debounce } from "throttle-debounce";
 
 // constants
-// import RNPOCSpacings from "../common/RNPOCSpacings";
 import RNPOCColors from "../common/RNPOCColors";
 import RNPOCSpacings from "../common/RNPOCSpacings";
 import RNPOCStringConstants from "../common/RNPOCStringConstants";
 import RNPOCConstantProps from "../common/RNPOCConstantProps";
 import RNPOCStyles from "../common/RNPOCStyle";
+
+// helpers
+import themeInjector from "../helpers/Theme";
 
 const _debounceTimeout = 500;
 
@@ -38,6 +40,8 @@ class SearchTextInput extends Component {
   };
 
   render() {
+    const { theme } = this.props;
+
     return (
       <View style={RNPOCStyles.inputWrapper}>
         <TextInput
@@ -48,7 +52,7 @@ class SearchTextInput extends Component {
           value={this.state.query}
           style={RNPOCStyles.input}
           placeholder={RNPOCStringConstants.searchPostsPlaceholder}
-          placeholderTextColor={RNPOCColors.inputPlaceholderColor}
+          placeholderTextColor={theme.inputPlaceholderColor}
           ref={inputRef => {
             this.input = inputRef;
           }}
@@ -70,7 +74,7 @@ class SearchTextInput extends Component {
   }
 }
 // TODO: implement refresh.
-export default SearchTextInput;
+export default themeInjector(SearchTextInput);
 
 const styles = StyleSheet.create({
   xButtonImitation: {

@@ -22,6 +22,9 @@ import RNPOCStringConstants from "../common/RNPOCStringConstants";
 import RNPOCStyles from "../common/RNPOCStyle";
 import RNPOCSpacings from "../common/RNPOCSpacings";
 
+// helpers
+import themeInjector from "../helpers/Theme";
+
 class CreatePostSection extends Component {
   state = {
     newPostTitle: "",
@@ -73,6 +76,8 @@ class CreatePostSection extends Component {
   };
 
   render() {
+    const { theme } = this.props;
+
     const isNewPostCommitValid =
       this.state.newPostTitle &&
       this.state.newPostTitle.length !== 0 &&
@@ -81,7 +86,7 @@ class CreatePostSection extends Component {
     return (
       <View>
         <View style={styles.captionWrapper}>
-          <Text style={styles.caption}>
+          <Text style={[styles.caption, { color: theme.captionColor }]}>
             {RNPOCStringConstants.createANewMessageCaption}
           </Text>
         </View>
@@ -94,7 +99,7 @@ class CreatePostSection extends Component {
             value={this.state.newPostTitle}
             multiline
             placeholder={RNPOCStringConstants.createPostTitlePlaceholder}
-            placeholderTextColor={RNPOCColors.inputPlaceholderColor}
+            placeholderTextColor={theme.inputPlaceholderColor}
             style={RNPOCStyles.input}
           />
         </View>
@@ -107,7 +112,7 @@ class CreatePostSection extends Component {
             value={this.state.newPostContent}
             multiline
             placeholder={RNPOCStringConstants.createPostContentPlaceholder}
-            placeholderTextColor={RNPOCColors.inputPlaceholderColor}
+            placeholderTextColor={theme.inputPlaceholderColor}
             style={RNPOCStyles.input}
           />
         </View>
@@ -136,15 +141,14 @@ class CreatePostSection extends Component {
   }
 }
 
-export default withApollo(CreatePostSection);
+export default themeInjector(withApollo(CreatePostSection));
 
 const styles = StyleSheet.create({
   captionWrapper: { marginBottom: RNPOCSpacings.verticalDistanceNormal },
 
   caption: {
     fontSize: RNPOCSpacings.fontSizeNormal,
-    fontWeight: RNPOCSpacings.weightBold,
-    color: RNPOCColors.lightGray
+    fontWeight: RNPOCSpacings.weightBold
   },
 
   submitButtonWrapper: {

@@ -4,7 +4,11 @@ const RNPOCStringConstants = {
   createPostTitlePlaceholder: "Post title",
   createPostContentPlaceholder: "What is on your mind?",
   createANewMessageCaption: "Create a new post",
-  submitNewPostButtonText: "Submit"
+  submitNewPostButtonText: "Submit",
+  addCommentPlaceholder: "Add a comment...",
+  OK: "OK",
+  settings:"Settings",
+  colorThemeSelectCaption:"Color Theme"
 };
 
 export default RNPOCStringConstants;

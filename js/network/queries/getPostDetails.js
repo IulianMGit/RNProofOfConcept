@@ -17,6 +17,7 @@ export default gql`
       }
 
       comments {
+        _id
         text
         user {
           firstname

@@ -1,22 +1,17 @@
+// import ColorThemeStore from "../ColorThemeStore";
+
 const namedColors = {
   black: "#000",
   white: "#fff",
 
-  lightBlue: "#0ee",
+  lightBlue: "#3af",
   darkBlue: "#0a0a22",
 
   darkGray: "#242834",
   darkGray2: "#243345",
 
-  lightGray: "#eeeeee"
+  lightGray: "#eeeeee",
+  lightGray2: "#aaaa"
 };
 
-export default {
-  ...namedColors,
-
-  tabBackgroundColor: namedColors.darkGray,
-  tabColor: namedColors.white,
-  tabUnderlayColor: namedColors.darkGray2,
-  contentBackgroundColor: namedColors.darkBlue,
-  inputPlaceholderColor: namedColors.lightGray
-};
+export default namedColors;

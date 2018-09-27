@@ -2,14 +2,14 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { Link } from "react-router-native";
+import themeInjector from "./helpers/Theme";
 
 // constants
-import RNPOCColors from "./common/RNPOCColors";
 import RNPOCIcons from "./common/RNPOCIcons";
 
 class TabsNav extends Component {
   render() {
-    const { postCategories } = this.props;
+    const { postCategories, theme } = this.props;
 
     return (
       <View style={styles.nav}>
@@ -20,8 +20,11 @@ class TabsNav extends Component {
               pathname: `/tabNav/${postCategory._id}`,
               state: { name: postCategory.name }
             }}
-            underlayColor={RNPOCColors.tabUnderlayColor}
-            style={styles.navItem}
+            underlayColor={theme.tabUnderlayColor}
+            style={[
+              styles.navItem,
+              { backgroundColor: theme.tabBackgroundColor }
+            ]}
           >
             {RNPOCIcons[`${postCategory.name.toLowerCase()}TabIcon`] ? (
               RNPOCIcons[`${postCategory.name.toLowerCase()}TabIcon`]
@@ -33,8 +36,11 @@ class TabsNav extends Component {
 
         <Link
           to="/settings"
-          underlayColor={RNPOCColors.tabUnderlayColor}
-          style={styles.navItem}
+          underlayColor={theme.tabUnderlayColor}
+          style={[
+            styles.navItem,
+            { backgroundColor: this.props.theme.tabBackgroundColor }
+          ]}
         >
           {RNPOCIcons.settingsTabIcon}
         </Link>
@@ -43,19 +49,19 @@ class TabsNav extends Component {
   }
 }
 
-export default TabsNav;
+export default themeInjector(TabsNav);
 // TODO: see if we need switch
 
 const styles = StyleSheet.create({
   nav: {
     flexDirection: "row",
-    justifyContent: "space-around"
+    justifyContent: "space-around",
+    width: "100%"
   },
   navItem: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingVertical: 15,
-    backgroundColor: RNPOCColors.tabBackgroundColor
+    paddingVertical: 15
   }
 });
