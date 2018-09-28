@@ -54,7 +54,7 @@ class GenericSet extends Component {
     this.setState({ posts, isFetching: false });
   }
 
-  // TODO: implement search server side: for now just filter the fetched posts, couldn't find way to query the graphQL server.
+  // TODO: implement search server side: for now just filter the fetched posts, couldn't find a way to query the graphQL server.
   _search = async query => {
     this.setState({ query });
     Keyboard.dismiss();
