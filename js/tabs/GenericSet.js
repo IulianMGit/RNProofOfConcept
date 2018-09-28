@@ -87,7 +87,7 @@ class GenericSet extends Component {
   };
 
   navigateToPostDetails = postId => {
-    this.props.history.push(`/postDetails/${postId}`);
+    this.props.history.push({ pathname: `/postDetails/${postId}` });
   };
 
   render() {

@@ -1,26 +1,25 @@
 // depedencies
 import React, { Component } from "react";
 import { Text, View, StyleSheet, Switch } from "react-native";
+import { observer, inject } from "mobx-react";
 
 // constants
 import RNPOCStyles from "../common/RNPOCStyle";
 import RNPOCSpacings from "../common/RNPOCSpacings";
 import RNPOCStringConstants from "../common/RNPOCStringConstants";
 
-// stores
-import ColorThemeStore from "../ColorThemeStore";
-
 // helpers
 import themeInjector from "../helpers/Theme";
 
+@inject("colorThemeStore")
+@observer
 class SettingsSet extends Component {
   state = {
-    colorThemeSwitchValue: ColorThemeStore.theme.color === "dark"
+    colorThemeSwitchValue: this.props.colorThemeStore.theme === "dark"
   };
 
   render() {
     const { theme } = this.props;
-
     return (
       <View style={styles.settingsWrapper}>
         <View style={RNPOCStyles.sectionTitleWrapper}>
@@ -38,7 +37,7 @@ class SettingsSet extends Component {
           <Switch
             value={this.state.colorThemeSwitchValue}
             onValueChange={value => {
-              ColorThemeStore.switch();
+              this.props.colorThemeStore.switch();
               this.setState({
                 colorThemeSwitchValue: value
               });

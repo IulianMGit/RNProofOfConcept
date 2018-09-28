@@ -7,8 +7,8 @@ const RNPOCStringConstants = {
   submitNewPostButtonText: "Submit",
   addCommentPlaceholder: "Add a comment...",
   OK: "OK",
-  settings:"Settings",
-  colorThemeSelectCaption:"Color Theme"
+  settings: "Settings",
+  colorThemeSelectCaption: "Dark mode"
 };
 
 export default RNPOCStringConstants;

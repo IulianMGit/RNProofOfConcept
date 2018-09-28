@@ -15,6 +15,9 @@
   "parser": "babel-eslint",
 
   "parserOptions": {
-    "ecmaVersion": 8
+    "ecmaVersion": 8,
+    "ecmaFeatures": {
+      "legacyDecorators": true
+    }
   }
 }

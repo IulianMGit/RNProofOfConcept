@@ -9,8 +9,6 @@ import {
 } from "react-native";
 import { Route, withRouter } from "react-router-native";
 import { graphql } from "react-apollo";
-// import { observer, inject } from "mobx-react";
-// import { Provider as MobXProvider } from "mobx-react/native";
 
 // queries
 import GET_CATEGORIES from "./network/queries/getCategories";
@@ -101,6 +99,7 @@ class AppContainer extends Component {
 }
 
 export default themeInjector(graphql(GET_CATEGORIES)(withRouter(AppContainer)));
+// export default themeInjector(graphql(GET_CATEGORIES)(withRouter(AppContainer)));
 
 const styles = StyleSheet.create({
   container: {

@@ -1,5 +1,3 @@
-// import ColorThemeStore from "../ColorThemeStore";
-
 const namedColors = {
   black: "#000",
   white: "#fff",

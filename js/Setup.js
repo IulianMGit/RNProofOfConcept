@@ -2,26 +2,25 @@
 import React, { Component } from "react";
 import { NativeRouter } from "react-router-native";
 import { ApolloProvider } from "react-apollo";
-import CustomApolloClient from "./network/CustomApolloClient";
+import { Provider } from "mobx-react";
 
-import ThemeProvider from "./common/ThemeProvider";
-import ColorThemeStore from "./ColorThemeStore";
+// helpers
+import CustomApolloClient from "./network/CustomApolloClient";
+import stores from "./helpers/StoresProvider";
 
 // screens
-import AppContainer from "./AppContainer";
+import ThemeSetup from "./ThemeSetup";
 
 class Setup extends Component {
-  render() {
-    return (
+  render = () => (
+    <Provider {...stores}>
       <ApolloProvider client={CustomApolloClient}>
         <NativeRouter>
-          <ThemeProvider theme={ColorThemeStore.theme.color}>
-            <AppContainer />
-          </ThemeProvider>
+          <ThemeSetup />
         </NativeRouter>
       </ApolloProvider>
-    );
-  }
+    </Provider>
+  );
 }
 
 export default Setup;
