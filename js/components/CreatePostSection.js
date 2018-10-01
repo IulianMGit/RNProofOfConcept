@@ -26,10 +26,12 @@ import RNPOCSpacings from "../common/RNPOCSpacings";
 import themeInjector from "../helpers/Theme";
 
 class CreatePostSection extends Component {
-  state = {
+  initialState = {
     newPostTitle: "",
     newPostContent: ""
   };
+
+  state = this.initialState;
 
   _getUserId = async () => {
     const { data } = await this.props.client.query({
@@ -68,7 +70,7 @@ class CreatePostSection extends Component {
       }
     });
 
-    this.setState({ newPostTitle: "", newPostContent: "" });
+    this.setState(this.initialState);
 
     setTimeout(() => {
       this.props.addPost(data.addPost);
@@ -83,6 +85,7 @@ class CreatePostSection extends Component {
       this.state.newPostTitle.length !== 0 &&
       this.state.newPostContent &&
       this.state.newPostContent.length !== 0;
+      
     return (
       <View>
         <View style={styles.captionWrapper}>

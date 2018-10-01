@@ -35,10 +35,6 @@ class SearchTextInput extends Component {
     this.props.throttledCallback("");
   };
 
-  focusInput = () => {
-    this.input.focus();
-  };
-
   render() {
     const { theme } = this.props;
 
@@ -73,7 +69,7 @@ class SearchTextInput extends Component {
     );
   }
 }
-// TODO: implement refresh.
+
 export default themeInjector(SearchTextInput);
 
 const styles = StyleSheet.create({

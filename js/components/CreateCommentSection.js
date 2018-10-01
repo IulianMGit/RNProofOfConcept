@@ -7,9 +7,6 @@ import {
   StyleSheet,
   TouchableOpacity,
   Keyboard
-  //   ActivityIndicator,
-  //   RefreshControl,
-  //   Keyboard
 } from "react-native";
 import { withApollo } from "react-apollo";
 
@@ -26,9 +23,11 @@ import RNPOCSpacings from "../common/RNPOCSpacings";
 import RNPOCConstantProps from "../common/RNPOCConstantProps";
 
 class CreateCommentSection extends Component {
-  state = {
+  initialState = {
     newCommentText: ""
   };
+
+  state = this.initialState;
 
   // TODO: refactor when implementing mobx/redux.
   _getUser = async () => {
@@ -55,10 +54,10 @@ class CreateCommentSection extends Component {
       }
     });
 
-    this.setState({ newCommentText: "" });
+    this.setState(this.initialState);
     Keyboard.dismiss();
 
-    data.addComment.user = user;// I can t take it from mutation for some reason.
+    data.addComment.user = user; // I can t take it from mutation for some reason.
 
     setTimeout(() => {
       this.props.onAddComment(data.addComment);

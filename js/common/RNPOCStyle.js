@@ -29,7 +29,6 @@ const RNPOCStyles = StyleSheet.create({
     marginBottom: RNPOCSpacings.verticalDistanceNormal
   },
   input: {
-    // height: 40,
     flex: 1,
     color: RNPOCColors.white,
     paddingHorizontal: RNPOCSpacings.verticalDistanceNormal

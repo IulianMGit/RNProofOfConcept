@@ -6,13 +6,12 @@ class ColorThemeStore {
   _lightTheme = "light";
 
   @observable
-  theme = "dark";
+  theme = this._darkTheme;
 
   @action
   switch() {
     this.theme =
       this.theme === this._darkTheme ? this._lightTheme : this._darkTheme;
-    console.log("color", this.theme);
   }
 }
 

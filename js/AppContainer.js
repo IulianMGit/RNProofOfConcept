@@ -77,7 +77,15 @@ class AppContainer extends Component {
     const { data, theme } = this.props;
     const { loading, postCategories } = data;
 
-    if (loading) return <View style={styles.container} />;
+    if (loading)
+      return (
+        <View
+          style={[
+            styles.containerPlaceholder,
+            { backgroundColor: theme.contentBackgroundColor }
+          ]}
+        />
+      );
 
     return (
       <View
@@ -99,13 +107,16 @@ class AppContainer extends Component {
 }
 
 export default themeInjector(graphql(GET_CATEGORIES)(withRouter(AppContainer)));
-// export default themeInjector(graphql(GET_CATEGORIES)(withRouter(AppContainer)));
 
 const styles = StyleSheet.create({
   container: {
     flexDirection: "column",
     justifyContent: "space-between",
     height: vh - StatusBar.currentHeight
+  },
+  containerPlaceholder: {
+    height: "100%",
+    width: "100%"
   },
   tabsContent: {
     height: "100%",

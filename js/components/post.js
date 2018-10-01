@@ -6,7 +6,6 @@ import { StyleSheet, Text, TouchableOpacity } from "react-native";
 import RNPOCColors from "../common/RNPOCColors";
 import RNPOCSpacings from "../common/RNPOCSpacings";
 
-// const navigateToPostDetail = () => {};
 
 const Post = ({ post, onPress }) => (
   <TouchableOpacity onPress={onPress} style={styles.postWrapper}>
@@ -14,6 +13,8 @@ const Post = ({ post, onPress }) => (
     <Text style={styles.postDescription}>{post.description}</Text>
   </TouchableOpacity>
 );
+
+export default Post;
 
 const styles = StyleSheet.create({
   postWrapper: {
@@ -33,4 +34,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Post;

@@ -5,9 +5,6 @@ import {
   Text,
   FlatList,
   StyleSheet
-  //   ActivityIndicator,
-  //   RefreshControl,
-  //   Keyboard
 } from "react-native";
 import { withApollo } from "react-apollo";
 

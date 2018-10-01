@@ -50,7 +50,6 @@ class TabsNav extends Component {
 }
 
 export default themeInjector(TabsNav);
-// TODO: see if we need switch
 
 const styles = StyleSheet.create({
   nav: {

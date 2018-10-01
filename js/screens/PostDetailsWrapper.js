@@ -1,7 +1,6 @@
 // dependencies
 import React, { Component } from "react";
 import {
-  StyleSheet,
   ActivityIndicator,
   KeyboardAvoidingView,
   StatusBar,
@@ -66,7 +65,6 @@ class PostDetailsWrapper extends Component {
       return (
         <ActivityIndicator
           color={RNPOCColors.white}
-          style={styles.activityIndicator}
         />
       );
 
@@ -94,4 +92,3 @@ class PostDetailsWrapper extends Component {
 
 export default withApollo(PostDetailsWrapper);
 
-const styles = StyleSheet.create({});
