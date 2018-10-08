@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export default gql`
-  {
-    postCategories {
+query getPostCategories($filters: JSON, $options: JSON) {
+    postCategories(filters: $filters, options: $options) {
       _id
       name
     }

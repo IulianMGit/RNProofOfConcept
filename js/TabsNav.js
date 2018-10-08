@@ -13,26 +13,27 @@ class TabsNav extends Component {
 
     return (
       <View style={styles.nav}>
-        {postCategories.map(postCategory => (
-          <Link
-            key={postCategory._id}
-            to={{
-              pathname: `/tabNav/${postCategory._id}`,
-              state: { name: postCategory.name }
-            }}
-            underlayColor={theme.tabUnderlayColor}
-            style={[
-              styles.navItem,
-              { backgroundColor: theme.tabBackgroundColor }
-            ]}
-          >
-            {RNPOCIcons[`${postCategory.name.toLowerCase()}TabIcon`] ? (
-              RNPOCIcons[`${postCategory.name.toLowerCase()}TabIcon`]
-            ) : (
-              <Text>?</Text>
-            )}
-          </Link>
-        ))}
+        {postCategories &&
+          postCategories.map(postCategory => (
+            <Link
+              key={postCategory._id}
+              to={{
+                pathname: `/tabNav/${postCategory._id}`,
+                state: { name: postCategory.name }
+              }}
+              underlayColor={theme.tabUnderlayColor}
+              style={[
+                styles.navItem,
+                { backgroundColor: theme.tabBackgroundColor }
+              ]}
+            >
+              {RNPOCIcons[`${postCategory.name.toLowerCase()}TabIcon`] ? (
+                RNPOCIcons[`${postCategory.name.toLowerCase()}TabIcon`]
+              ) : (
+                <Text>?</Text>
+              )}
+            </Link>
+          ))}
 
         <Link
           to="/settings"
